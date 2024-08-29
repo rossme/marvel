@@ -1,0 +1,14 @@
+<!-- This is the main view for the comics index page -->
+<div class="w-full bg-neutral-800">
+  <%= render "comics/banner" %>
+
+  <div data-controller="comics">
+    <div class="flex flex-col justify-center px-28 min-h-screen pt-52">
+      <div class="pt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" data-comics-target="list" id="comic-list">
+        <!-- Comics are rendered here using stimulus -->
+      </div>
+
+      <%= render "comics/pagination"%>
+    </div>
+  </div>
+</div>
