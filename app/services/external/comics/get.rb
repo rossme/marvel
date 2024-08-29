@@ -12,10 +12,7 @@ module External
       end
 
       def call
-        response = Rails.cache.fetch("api/comics/#{page}", expires_in: 1.hour, skip_nil: true) do
-          Rails.logger.info "Cache miss, fetching data from the API"
-          build_response
-        end
+        response = fetch_cached_response(path: "api/comics/#{page}")
 
         Result.new(true, response, nil)
       rescue ExternalApiError => e

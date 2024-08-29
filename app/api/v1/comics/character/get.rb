@@ -11,10 +11,11 @@ module V1
 
           params do
             requires :name, type: String, desc: "Character name"
+            optional :page, type: Integer, desc: "Page number", default: 0
           end
 
           get do
-            request = External::Comics::Character::Get.new(name: params[:name]).call
+            request = External::Comics::Character::Get.new(name: params[:name], page: params[:page]).call
 
             request.success? ? request.result : error!(request.errors, 400)
           end

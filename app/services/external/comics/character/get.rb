@@ -8,7 +8,7 @@ module External
 
         Result = Struct.new(:success?, :result, :errors)
 
-        def initialize(name:, page: 0)
+        def initialize(name:, page:)
           @name = name.downcase
           @page = page
         end

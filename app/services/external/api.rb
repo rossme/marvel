@@ -90,7 +90,7 @@ module External
 
     def fetch_cached_response(path:, search: false)
       Rails.cache.fetch(path, expires_in: 1.hour, skip_nil: true) do
-        Rails.logger.info "Cache miss, fetching data from the API"
+        Rails.logger.info "Cache miss, fetching external data from the Marvel API"
         build_response(search: search)
       end
     end

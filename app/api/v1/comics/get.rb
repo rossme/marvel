@@ -7,8 +7,13 @@ module V1
 
       resource "comics" do
         desc "Returns a list of comics"
+
+        params do
+          optional :page, type: Integer, desc: "Page number", default: 0
+        end
+
         get do
-          request = External::Comics::Get.new.call
+          request = External::Comics::Get.new(page: params[:page]).call
 
           request.success? ? request.result : error!(request.errors, 400)
         end
