@@ -39,7 +39,12 @@ module External
 
       # Move to a common module or base class
       def pagination
-        "&offset=#{page}"
+        "&offset=#{offset}"
+      end
+
+      # Move to a common module or base class
+      def offset
+        page * 20 # 20 is the default response limit
       end
     end
   end
