@@ -55,7 +55,7 @@ group :development, :test do
   gem "simplecov", require: false
 
   # Test suite
-  gem "rspec-rails", "~> 6.1.0"
+  gem "rspec-rails", "~> 6.1.4"
 
   # Linter
   gem "rubocop", require: false
