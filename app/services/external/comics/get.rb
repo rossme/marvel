@@ -37,7 +37,7 @@ module External
 
       # Move to a common module or base class
       def order_by
-        "&orderBy=onsaleDate"
+        "&orderBy=-onsaleDate"
       end
 
       # Move to a common module or base class
