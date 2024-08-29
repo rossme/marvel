@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+module V1
+  module Comics
+    module Character
+      class Get < Grape::API
+        include V1::ApiDefaults
+
+        resource "comics/character" do
+          desc "Returns a list of comics by character name"
+
+          params do
+            requires :name, type: String, desc: "Character name"
+          end
+
+          get do
+            request = External::Comics::Character::Get.new(name: params[:name]).call
+
+            request.success? ? request.result : error!(request.errors, 400)
+          end
+        end
+      end
+    end
+  end
+end
