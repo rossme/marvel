@@ -74,9 +74,11 @@ module External
       raise NotImplementedError
     end
 
-    def build_response
+    def build_response(search: false)
       results = make_request.dig(:data, :results)
+      return results if search
 
+      # Return the attributes we need from the API response
       results.map do |result|
         {
           id: result[:id],
@@ -86,8 +88,15 @@ module External
       end
     end
 
+    def fetch_cached_response(path:, search: false)
+      Rails.cache.fetch(path, expires_in: 1.hour, skip_nil: true) do
+        Rails.logger.info "Cache miss, fetching data from the API"
+        build_response(search: search)
+      end
+    end
+
+    # If a thumbnail path is not available from the Marvel API, return a placeholder image
     def build_image_path(result)
-      # If a thumbnail path is not available from the Marvel API, return a placeholder image
       if result[:thumbnail][:path].include?("image_not_available")
         return "/assets/marvel_placeholder.jpg"
       end

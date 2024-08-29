@@ -8,8 +8,9 @@ module External
 
         Result = Struct.new(:success?, :result, :errors)
 
-        def initialize(name:)
-          @name = name
+        def initialize(name:, page: 0)
+          @name = name.downcase
+          @page = page
         end
 
         def call
@@ -17,25 +18,30 @@ module External
           get_character_comics
 
           Result.new(true, comics, nil)
-        rescue StandardError => e
+        rescue ExternalApiError => e
           Result.new(false, nil, e.message)
         end
 
         private
 
-        attr_reader :name, :character_id, :comics
+        attr_reader :character_id, :comics, :name, :page
 
         def get_character_id
-          character_data = make_request.dig(:data, :results)
-          if make_request.dig(:data, :results).present?
-            @character_id = character_data.first[:id]
-          else
-            raise "Character not found"
-          end
+          response = fetch_cached_response(path: "api/comics/character/#{name}/#{page}", search: true)
+
+          @character_id = response.first.dig(:id) if valid_response?(response&.first)
+        end
+
+        def valid_response?(response)
+          return true if response&.dig(:id) && response&.dig(:name)&.downcase == name
+
+          raise "Character not found"
         end
 
         def get_character_comics
-          @comics = build_response
+          response = fetch_cached_response(path: "api/comics/character/#{@character_id}/#{page}")
+
+          @comics = response
         end
 
         def endpoint
@@ -43,7 +49,21 @@ module External
         end
 
         def custom_params
-          @character_id ? "&orderBy=onsaleDate" : "&name=#{name}"
+          if @character_id
+            "#{order_by}#{pagination}"
+          else
+            "&name=#{name}"
+          end
+        end
+
+        # Move to a common module or base class
+        def order_by
+          "&orderBy=onsaleDate"
+        end
+
+        # Move to a common module or base class
+        def pagination
+          "&offset=#{page}"
         end
       end
     end

@@ -7,30 +7,42 @@ module External
 
       Result = Struct.new(:success?, :result, :errors)
 
-      def initialize; end
+      def initialize(page: 0)
+        @page = page
+      end
 
       def call
-        # create an ETAG and pass it here as a UID?
-        response = Rails.cache.fetch("foo", expires_in: 1.hour, skip_nil: true) do
-          Rails.logger.info "Fetching comics from Marvel API"
+        response = Rails.cache.fetch("api/comics/#{page}", expires_in: 1.hour, skip_nil: true) do
+          Rails.logger.info "Cache miss, fetching data from the API"
           build_response
         end
 
         Result.new(true, response, nil)
-      rescue StandardError => e
+      rescue ExternalApiError => e
         Result.new(false, nil, e.message)
       end
 
       private
 
-      attr_reader :character_id
+      attr_reader :page
 
       def endpoint
         "/comics"
       end
 
+      # Move to a common module or base class
       def custom_params
+        "#{order_by}#{pagination}"
+      end
+
+      # Move to a common module or base class
+      def order_by
         "&orderBy=onsaleDate"
+      end
+
+      # Move to a common module or base class
+      def pagination
+        "&offset=#{page}"
       end
     end
   end
