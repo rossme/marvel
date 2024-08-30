@@ -15,7 +15,7 @@ module V1
           end
 
           get do
-            request = External::Comics::Character::Get.new(name: params[:name], page: params[:page]).call
+            request = External::Comics::Character::Get.new(name: params[:name], page: params[:page], user_id: current_user.id).call
 
             request.success? ? request.result : error!(request.errors, 400)
           end

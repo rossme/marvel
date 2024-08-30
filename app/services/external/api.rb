@@ -16,6 +16,7 @@ module External
 
     def connection
       Faraday.new do |conn|
+        conn.use ApiRateLimiter, cache_key: user_api_limiter_cache_key
         conn.use :http_cache, store: Rails.cache, logger: Rails.logger
         conn.headers["Content-Type"] = "application/json"
         conn.request :url_encoded
@@ -59,11 +60,11 @@ module External
     end
 
     def private_key
-      marvel_keys[:private_key]
+      @_private_key ||= marvel_keys[:private_key]
     end
 
     def public_key
-      marvel_keys[:public_key]
+      @_public_key ||= marvel_keys[:public_key]
     end
 
     def parse_response(res)
@@ -102,6 +103,12 @@ module External
       end
 
       result[:thumbnail][:path] + "." + result[:thumbnail][:extension]
+    end
+
+    def user_api_limiter_cache_key
+      raise ExternalApiError, "A valid user must be logged in to track their API use" unless user_id
+
+      "user_#{user_id}_api_limiter_cache"
     end
 
     class ExternalApiError < Faraday::Error; end

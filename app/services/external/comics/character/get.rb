@@ -8,9 +8,10 @@ module External
 
         Result = Struct.new(:success?, :result, :errors)
 
-        def initialize(name:, page:)
+        def initialize(name:, page: 0, user_id: nil)
           @name = name.downcase
           @page = page
+          @user_id = user_id
         end
 
         def call
@@ -24,7 +25,7 @@ module External
 
         private
 
-        attr_reader :character_id, :comics, :name, :page
+        attr_reader :character_id, :comics, :name, :page, :user_id
 
         def get_character_id
           response = fetch_cached_response(path: "api/comics/character/#{name}/#{page}", search: true)
@@ -58,17 +59,17 @@ module External
 
         # Move to a common module or base class
         def order_by
-          "&orderBy=-onsaleDate"
+          @_order_by ||= "&orderBy=-onsaleDate"
         end
 
         # Move to a common module or base class
         def pagination
-          "&offset=#{offset}"
+          @_pagination ||= "&offset=#{offset}"
         end
 
         # Move to a common module or base class
         def offset
-          page * 20 # 20 is the default response limit
+          @_offset ||= page * 20 # 20 is the default response limit
         end
       end
     end

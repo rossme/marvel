@@ -7,8 +7,9 @@ module External
 
       Result = Struct.new(:success?, :result, :errors)
 
-      def initialize(page: 0)
+      def initialize(page: 0, user_id: nil)
         @page = page
+        @user_id = user_id
       end
 
       def call
@@ -21,30 +22,30 @@ module External
 
       private
 
-      attr_reader :page
+      attr_reader :page, :user_id
 
       def endpoint
-        "/comics"
+        @_endpoint ||= "/comics"
       end
 
       # Move to a common module or base class
       def custom_params
-        "#{order_by}#{pagination}"
+        @_custom_params ||= "#{order_by}#{pagination}"
       end
 
       # Move to a common module or base class
       def order_by
-        "&orderBy=-onsaleDate"
+        @_order_by ||= "&orderBy=-onsaleDate"
       end
 
       # Move to a common module or base class
       def pagination
-        "&offset=#{offset}"
+        @_pagination ||= "&offset=#{offset}"
       end
 
       # Move to a common module or base class
       def offset
-        page * 20 # 20 is the default offset limit (20 items per page)
+        @_offset ||= page * 20 # 20 is the default offset limit (20 items per page)
       end
     end
   end
