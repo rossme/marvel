@@ -17,7 +17,7 @@ module External
     end
 
     def exceeds_api_rate_limit?
-      @request_count > API_RATE_LIMIT
+      @request_count >= API_RATE_LIMIT
     end
 
     def increment_api_request_count
