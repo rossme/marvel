@@ -63,4 +63,10 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.formatter = :documentation
+
+  # Include Devise helpers for testing the Grape API endpoints
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Warden::Test::Helpers
+  config.include FactoryBot::Syntax::Methods
 end

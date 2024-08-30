@@ -62,6 +62,8 @@ group :development, :test do
 
   # Middleware that displays speed badge
   gem "rack-mini-profiler"
+
+  gem "factory_bot_rails"
 end
 
 group :development do
