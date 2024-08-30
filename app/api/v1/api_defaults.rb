@@ -9,14 +9,6 @@ module V1
       prefix :api
       format :json
       content_type :json, "application/json"
-
-      rescue_from ActiveRecord::RecordNotFound do |e|
-        error!(message: e.message, status: 404)
-      end
-
-      rescue_from ActiveRecord::RecordInvalid do |e|
-        error!(message: e.message, status: 422)
-      end
     end
   end
 end

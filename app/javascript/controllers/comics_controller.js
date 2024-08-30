@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { addHeartIcon, renderComicList } from "./utilities";
+import { addHeartIcon, renderComicList } from "./common";
 
 export default class extends Controller {
   static targets = ["list", "pagination", "hover"];

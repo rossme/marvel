@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { renderComicList } from "./utilities";
+import { renderComicList } from "./common";
 
 export default class extends Controller {
   static targets = ["input", "list"];
