@@ -20,7 +20,7 @@ module External
         conn.headers["Content-Type"] = "application/json"
         conn.request :url_encoded
         conn.adapter Faraday.default_adapter
-        conn.options.timeout = 90
+        conn.options.timeout = 40
       end
     rescue ExternalApiError => e
       Rails.logger.error("Error connecting to the API: #{e}")

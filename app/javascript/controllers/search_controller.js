@@ -10,6 +10,7 @@ export default class extends Controller {
 
   handleKeydown(event) {
     if (event.key === 'Enter') {
+      // Reset the page number to 0 when a new search is made
       this.page = 0
       this.fetchCharacter().then(r => {
         console.log('Connected to search controller. Page:', this.page)

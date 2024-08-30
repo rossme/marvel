@@ -8,6 +8,7 @@ export default class extends Controller {
     sessionStorage.removeItem('activeQuery')
     this.page = 0
     this.fetchComics(this.page).then(r => {
+      this.paginationTarget.classList.remove('invisible')
       console.log('Connected to comics controller. Page:', this.page)
     })
   }
@@ -97,10 +98,13 @@ export default class extends Controller {
   }
 
   async fetchComics(page) {
+    // To prevent additional API calls, disable the next and previous page buttons when fetching data
     const nextPageBtn = document.getElementById('next-page')
     nextPageBtn.disabled = true
+    const previousPageBtn = document.getElementById('previous-page')
+    previousPageBtn.disabled = true
 
-    // Get the current search query from the session storage
+    // Get the active search query from the session storage
     const activeQuery = JSON.parse(sessionStorage.getItem('activeQuery'))?.trim()
     console.log('Active query:', activeQuery)
 
@@ -116,7 +120,6 @@ export default class extends Controller {
       const response = await fetch(url)
       const data = await response.json()
       await renderComicList(data)
-      this.paginationTarget.classList.remove('invisible')
     } catch (error) {
       console.error('Error fetching comics:', error)
     } finally {
