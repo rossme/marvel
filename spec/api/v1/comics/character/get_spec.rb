@@ -5,10 +5,14 @@ require 'rails_helper'
 RSpec.describe V1::Comics::Character::Get, type: :request do
   describe 'GET /api/v1/comics/character' do
     subject(:do_request) { get '/api/v1/comics/character', params: params }
+    let(:current_user) { create(:user) }
     let(:name) { 'deadpool' }
 
     let :params do
-      { name: name }
+      {
+        name: name,
+        page: 0
+      }
     end
 
     describe 'returns a list of comics by character name' do

@@ -4,7 +4,14 @@ require 'rails_helper'
 
 RSpec.describe V1::Comics::Get, type: :request do
   describe 'GET /api/v1/comics' do
-    subject(:do_request) { get '/api/v1/comics', params: {} }
+    subject(:do_request) { get '/api/v1/comics', params: params }
+    let(:current_user) { create(:user) }
+
+    let(:params) do
+      {
+        page: 0
+      }
+    end
 
     describe 'returns a list of comics' do
       it 'returns a 200' do

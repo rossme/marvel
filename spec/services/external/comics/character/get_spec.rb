@@ -3,16 +3,23 @@
 require 'rails_helper'
 
 RSpec.describe External::Comics::Character::Get, type: :request do
-  subject(:do_request) { External::Comics::Character::Get.new(name: name).call }
+  subject(:do_request) { External::Comics::Character::Get.new(name: name, page:, user_id:).call }
   let(:name) { 'deadpool' }
+  let(:page) { 0 }
+  let(:user_id) { 3231 }
+  let(:character_id) { 118953 }
 
-  describe 'Makes a successful external request to get comics' do
+  describe 'Makes a successful request to get comics' do
     it 'returns a successful response' do
       expect(do_request.success?).to eq(true)
     end
 
     it 'returns a list of comics' do
       expect(do_request.result).not_to be_empty
+    end
+
+    it 'assigns the character id' do
+      expect(do_request.result.first.dig(:id)).to eq(character_id)
     end
   end
 

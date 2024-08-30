@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe External::Comics::Get, type: :request do
-  subject(:do_request) { External::Comics::Get.new.call }
+  subject(:do_request) { External::Comics::Get.new(page:, user_id:).call }
+  let(:page) { 0 }
+  let(:user_id) { 3231 }
 
   describe 'Makes a successful external request to get comics' do
     it 'returns a successful response' do
@@ -18,7 +20,7 @@ RSpec.describe External::Comics::Get, type: :request do
   describe 'Returns an error when the external request fails' do
     before do
       allow(External::Comics::Get).to receive(:new).and_return(
-        instance_double(External::Comics::Get, call: OpenStruct.new(success?: false, errors: 'error')
+        instance_double(External::Comics::Get, call: OpenStruct.new(success?: false, result: nil, errors: 'error')
       ))
     end
 
