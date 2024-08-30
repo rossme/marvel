@@ -12,7 +12,7 @@ export default class extends Controller {
     if (event.key === 'Enter') {
       this.page = 0
       this.fetchCharacter().then(r => {
-        sessionStorage.setItem('currentPage', this.page)
+        console.log('Connected to search controller. Page:', this.page)
       })
     }
   }
@@ -28,7 +28,7 @@ export default class extends Controller {
       .then(response => response.json())
       .then(data => {
         renderComicList(data)
-        // Save the current search query to the session storage
+        // Save the current search query to the session storage for pagination
         sessionStorage.setItem('activeQuery', JSON.stringify(query))
       })
       .catch(error => {

@@ -45,6 +45,7 @@ export default class extends Controller {
     if (!overlay) {
       overlay = document.createElement('div')
       overlay.classList.add('text-overlay')
+
       // Use the comic data title attribute as the overlay text
       overlay.innerText = hoverElement.dataset.title
       hoverElement.appendChild(overlay)
@@ -73,31 +74,26 @@ export default class extends Controller {
   }
 
   nextPage() {
-    if (this.page === 0) {
-      const previousPageBtn = document.getElementById('previous-page')
-      previousPageBtn.classList.remove('opacity-70')
-      previousPageBtn.disabled = false
+    this.changePage(true)
+  }
+
+  previousPage() {
+    this.changePage(false)
+  }
+
+  changePage(isNext) {
+    if (isNext) {
+      this.page += 1
+    } else {
+      this.page -= 1
     }
 
-    this.page += 1
+    const previousPageBtn = document.getElementById('previous-page')
+    previousPageBtn.disabled = !isNext && this.page === 0
 
     this.fetchComics(this.page).then(r => {
       console.log(`Page ${this.page} loaded`)
     })
-  }
-
-  previousPage() {
-    if (this.page > 0) {
-      this.page -= 1
-      let searchInput = document.getElementById('search-input')
-      const query = searchInput?.value
-      this.fetchComics(this.page).then(r => {
-        console.log(`Page ${this.page} loaded`)
-      })
-    } else {
-      const previousPageBtn = document.getElementById('previous-page')
-      previousPageBtn.disabled = true
-    }
   }
 
   async fetchComics(page) {
