@@ -18,6 +18,30 @@
   background-color: #ED1D24; /* Marvel Red */
 }
 
-.inner-box-shadow:hover {
-  box-shadow: inset 0 -10px 0 0 #ED1D24;
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  background: white;
+  font: 0.8125rem Arial;
+  font-weight: bold;
+  padding: 0.625rem;
+  border-bottom: 0.625rem solid #ED1D24;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.image-opacity {
+  opacity: 0.5;
+}
+
+.heart-icon {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
 }

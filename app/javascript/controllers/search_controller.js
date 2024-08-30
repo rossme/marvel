@@ -10,21 +10,26 @@ export default class extends Controller {
 
   handleKeydown(event) {
     if (event.key === 'Enter') {
-      this.fetchCharacter()
+      this.page = 0
+      this.fetchCharacter().then(r => {
+        sessionStorage.setItem('currentPage', this.page)
+      })
     }
   }
 
-  fetchCharacter() {
+  async fetchCharacter() {
     const query = this.inputTarget.value
     let url = `/api/v1/comics`
     if (query.length > 0) {
       url = `${url}/character?name=${query}`
     }
 
-    fetch(url)
+    await fetch(url)
       .then(response => response.json())
       .then(data => {
         renderComicList(data)
+        // Save the current search query to the session storage
+        sessionStorage.setItem('activeQuery', JSON.stringify(query))
       })
       .catch(error => {
         console.error('Error fetching character:', error)

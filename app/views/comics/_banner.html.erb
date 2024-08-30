@@ -2,13 +2,13 @@
 <div class="bg-marvel-red mb-4 fixed top-0 start-0 z-50 w-full pt-5 pb-2 opacity-90" tabindex="-1">
   <div data-controller="search">
     <div class="flex justify-center pb-1-5">
-      <a href="#">
+      <a href="/">
         <img src="<%= asset_path('marvel_logo.png') %>" alt="Marvel Logo">
       </a>
     </div>
     <div class="flex justify-center py-3">
       <label>
-        <input type="text" data-search-target="input" placeholder="" class="w-full max-w-xs block rounded-sm border-0 shadow-lg text-gray-400 italic">
+        <input type="text" id="search-input" data-search-target="input" placeholder="" class="w-full max-w-xs block rounded-sm border-0 shadow-lg text-gray-400 italic">
       </label>
       <button data-action="click->search#fetchCharacter"></button>
     </div>

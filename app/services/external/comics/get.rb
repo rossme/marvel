@@ -44,7 +44,7 @@ module External
 
       # Move to a common module or base class
       def offset
-        page * 20 # 20 is the default response limit
+        page * 20 # 20 is the default offset limit (20 items per page)
       end
     end
   end
