@@ -33,9 +33,9 @@ module External
     def get_request
       request = connection.get("#{complete_url}")
 
-      return request if request.status == 200
+      return request if request&.status == 200
 
-      raise ExternalApiError, "Error connecting to the API: #{request.status}"
+      raise ExternalApiError, "Error connecting to the API: #{request&.status}"
     end
 
     def complete_url
@@ -47,7 +47,7 @@ module External
     end
 
     def query_params
-      "?ts=#{1}&apikey=#{public_key}&hash=#{generate_secure_hash}#{custom_params}"
+      "?ts=1&apikey=#{public_key}&hash=#{generate_secure_hash}#{custom_params}"
     end
 
     def generate_secure_hash

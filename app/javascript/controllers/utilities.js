@@ -18,7 +18,7 @@ export async function renderComicList(data) {
   })
 }
 
-// Add the heart icon to the liked comics
+// Add a heart icon to each favourite comic
 export function addHeartIcon(element) {
   let image = document.createElement('img')
   image.src = '/assets/heart_on.png'
