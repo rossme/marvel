@@ -3,9 +3,7 @@
 This application demonstrates various technical abilities using the [Marvel API](https://developer.marvel.com/).
 It features API rate limiting, caching, testing with RSpec, including VCR, and Webmock for external API requests.
 
-
 https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
-
 
 ### Setup
 
@@ -41,6 +39,8 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
   - The tests cover the service object requests, controller, API/v1 endpoints and external API requests
   - The credentials have been filtered out of the VCR cassettes
 - **Database**: This application uses SQLite3
+
+---
 
 ### Key features
 
@@ -85,6 +85,8 @@ This application relies on several Ruby gems to enhance its functionality:
 - **Devise**: This gem handles user sessions and authentication.
 - **Stimulus**: This gem is used to add interactivity to the application, keeping the views lightweight.
 
+---
+
 #### Why VCR and Webmock?
 - VCR and Webmock are used to replay external HTTP interactions. This allows the application to run tests without making actual requests to the Marvel API.
 
@@ -108,3 +110,7 @@ This application relies on several Ruby gems to enhance its functionality:
 
 #### Why store favourite comics in the session?
 - Favourite comics are stored in the application session to simplify the application's use.
+
+<br>
+
+<img width="1497" alt="Marvel API search feature" src="https://github.com/user-attachments/assets/80c3104a-c260-4596-800d-872809466f99">
