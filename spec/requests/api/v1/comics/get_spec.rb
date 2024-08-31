@@ -5,6 +5,13 @@ require 'rails_helper'
 RSpec.describe V1::Comics::Get, type: :request do
   describe 'GET /api/v1/comics' do
     subject(:do_request) { get '/api/v1/comics', params: params }
+
+    let(:make_api_request) do
+      VCR.use_cassette('v1_comics') do
+        do_request
+      end
+    end
+
     let(:user) { create(:user) }
 
     let(:params) do
@@ -17,9 +24,9 @@ RSpec.describe V1::Comics::Get, type: :request do
       sign_in user
     end
 
-    describe 'returns a list of comics' do
+    describe 'returns a list of comics', :vcr do
       it 'returns a 200' do
-        do_request
+        make_api_request
 
         expect(response.status).to eq(200)
       end

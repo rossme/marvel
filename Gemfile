@@ -38,6 +38,12 @@ gem "faraday"
 # Middleware that handles caching with Faraday
 gem "faraday-http-cache"
 
+# CSS framework
+gem "tailwindcss-rails", "~> 2.7"
+
+# Devise for authentication
+gem "devise", "~> 4.9"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -74,7 +80,8 @@ group :development do
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
 end
 
-
-gem "tailwindcss-rails", "~> 2.7"
-
-gem "devise", "~> 4.9"
+group :test do
+  # Mock external API HTTP requests
+  gem "webmock"
+  gem "vcr"
+end

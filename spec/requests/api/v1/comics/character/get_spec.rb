@@ -15,13 +15,25 @@ RSpec.describe V1::Comics::Character::Get, type: :request do
       }
     end
 
+    let(:make_api_request) do
+      VCR.use_cassette('v1_comics_character') do
+        do_request
+      end
+    end
+
+    let(:make_api_request_failure) do
+      VCR.use_cassette('v1_comics_character_failure') do
+        do_request
+      end
+    end
+
     before do
       sign_in user
     end
 
-    describe 'returns a list of comics by character name' do
+    describe 'returns a list of comics by character name', :vcr do
       it 'returns a 200' do
-        do_request
+        make_api_request
 
         expect(response.status).to eq(200)
       end
@@ -30,8 +42,8 @@ RSpec.describe V1::Comics::Character::Get, type: :request do
     describe 'when the name is blank' do
       let(:name) { '' }
 
-      it 'returns an error' do
-        do_request
+      it 'returns an error', :vcr do
+        make_api_request_failure
 
         expect(response.status).to eq(400)
       end

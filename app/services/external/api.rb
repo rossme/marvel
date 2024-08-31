@@ -52,11 +52,11 @@ module External
     end
 
     def generate_secure_hash
-      @_generate_secure_hash ||= Digest::MD5.hexdigest("#{1}#{private_key}#{public_key}")
+      @_generate_secure_hash ||= Digest::MD5.hexdigest("1#{private_key}#{public_key}")
     end
 
     def marvel_keys
-      @_marvel_keys ||= Rails.application.credentials.dig("marvel")
+      @_marvel_keys ||= Rails.application.credentials[:marvel]
     end
 
     def private_key

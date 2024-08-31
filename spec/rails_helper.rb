@@ -6,6 +6,8 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'webmock/rspec'
+require 'vcr'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -69,4 +71,30 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers
   config.include FactoryBot::Syntax::Methods
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/vcr_cassettes'
+  c.allow_http_connections_when_no_cassette = false
+  c.hook_into :webmock
+
+  # Filter out credentials from the VCR cassettes
+  c.filter_sensitive_data('<PUBLIC_KEY>') { public_key }
+  c.filter_sensitive_data('<ENCRYPTED_HASH>') { secure_hash }
+end
+
+def secure_hash
+  Digest::MD5.hexdigest("1#{private_key}#{public_key}")
+end
+
+def marvel_keys
+  @_marvel_keys ||= Rails.application.credentials[:marvel]
+end
+
+def private_key
+  @_private_key ||= marvel_keys[:private_key]
+end
+
+def public_key
+  @_public_key ||= marvel_keys[:public_key]
 end

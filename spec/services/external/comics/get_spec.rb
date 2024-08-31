@@ -7,12 +7,22 @@ RSpec.describe External::Comics::Get, type: :request do
   let(:page) { 0 }
   let(:user_id) { 3231 }
 
+  let(:make_api_request) do
+    VCR.use_cassette('v1_comics') do
+      do_request
+    end
+  end
+
   describe 'Makes a successful external request to get comics' do
-    it 'returns a successful response' do
+    before do
+      make_api_request
+    end
+
+    it 'returns a successful response', :vcr do
       expect(do_request.success?).to eq(true)
     end
 
-    it 'returns a list of comics' do
+    it 'returns a list of comics', :vcr do
       expect(do_request.result).not_to be_empty
     end
   end
