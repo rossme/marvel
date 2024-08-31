@@ -4,6 +4,10 @@ This application demonstrates various technical abilities using the Marvel API [
 
 It uses API rate limiting, caching, testing with RSpec, VCR, and Webmock.
 
+
+https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
+
+
 ### Setup
 
 - **Framework**:
