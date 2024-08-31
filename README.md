@@ -112,6 +112,9 @@ This application relies on several Ruby gems to enhance its functionality:
 #### Why store favourite comics in the session?
 - Favourite comics are stored in the application session to simplify the application's use.
 
+#### What's next?
+- Add frontend test coverage.
+
 <br>
 
 <img width="1497" alt="Marvel API search feature" src="https://github.com/user-attachments/assets/80c3104a-c260-4596-800d-872809466f99">
