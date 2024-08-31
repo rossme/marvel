@@ -116,8 +116,8 @@ This application relies on several Ruby gems to enhance its functionality:
 #### What's next?
 - Add frontend test coverage.
 
-#### Limitations of the MARVEL API
-- The Marvel API is not production grade quality.
+#### Note on the external MARVEL API
+- The external Marvel API is not production grade quality, and can be slow to respond.
 
 #### Why are some comic images the same?
 - Not all comics on the Marvel API have an image and instead contain `/image_not_available` in the img path.
