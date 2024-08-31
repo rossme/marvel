@@ -53,7 +53,7 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
   - The cache is cleared every 24 hours.
   - Caching is used for both retrieving the latest comics and fetching comics by character.
   - This speeds up the application and reduces the number of requests to the Marvel API.
-- **RSPec Testing**: There are extensive tests using RSpec and VCR.
+- **RSpec Testing**: There are extensive tests using RSpec and VCR.
   - The tests cover the service object requests, controller, API/v1 endpoints and external API requests.
 - **Grape API**: The endpoints in the application use Grape API.
   - The API is versioned and follows RESTful conventions.
@@ -81,7 +81,7 @@ This application relies on several Ruby gems to enhance its functionality:
 - **Rack mini profiler**: This gem is used to profile the application's performance.
 - **Tailwind**: This gem is used to style the application.
 - **simplecov**: This gem is used to track test coverage.
-- **Rspec**: Extensive testing is ensured using RSpec.
+- **RSpec**: Extensive testing is ensured using RSpec.
 - **Factorybot Rails**: This gem facilitates testing by providing factories for generating test data.
 - **Devise**: This gem handles user sessions and authentication.
 - **Stimulus**: This gem is used to add interactivity to the application, keeping the views lightweight.
