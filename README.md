@@ -32,7 +32,7 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
   - The application is hosted on `http://localhost:3000`
 - **Internal API**:
   - The API is hosted on `http://localhost:3000/api/v1`
-  - The API has two endpoints: `/comics` and `/comics/:character_id`
+  - The API has two endpoints: `/comics` and `/comics/character`
   - The API is versioned and follows RESTful conventions
 - **Testing**: RSpec, VCR, Webmock, FactoryBot, Rack Mini Profiler
   - To run the tests, use the command `rspec`
