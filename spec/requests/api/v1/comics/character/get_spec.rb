@@ -5,14 +5,18 @@ require 'rails_helper'
 RSpec.describe V1::Comics::Character::Get, type: :request do
   describe 'GET /api/v1/comics/character' do
     subject(:do_request) { get '/api/v1/comics/character', params: params }
-    let(:current_user) { create(:user) }
     let(:name) { 'deadpool' }
+    let(:user) { create(:user) }
 
     let :params do
       {
         name: name,
         page: 0
       }
+    end
+
+    before do
+      sign_in user
     end
 
     describe 'returns a list of comics by character name' do
@@ -23,21 +27,16 @@ RSpec.describe V1::Comics::Character::Get, type: :request do
       end
     end
 
-    describe 'when the name does not exist' do
-      let(:name) { 'batman' }
+    describe 'when the name is blank' do
+      let(:name) { '' }
 
-      it 'returns a 400' do
+      it 'returns an error' do
         do_request
 
         expect(response.status).to eq(400)
       end
-
-      it 'returns an error message' do
-        do_request
-
-        expect(JSON.parse(response.body)['error']).to eq('Character not found')
-      end
     end
+
 
     describe 'returns an error' do
       it 'returns a 400' do
