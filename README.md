@@ -1,7 +1,8 @@
 # Marvel Comics API
 
-This application demonstrates various technical abilities using the [Marvel API](https://developer.marvel.com/).
-It features API rate limiting, caching, testing with RSpec, including VCR, and Webmock for external API requests.
+This project highlights various technical abilities using the [Marvel API](https://developer.marvel.com/).
+Features include API rate limiting, caching, and the ability to record and replay external HTTP requests using VCR and Webmock.
+
 
 https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
 
@@ -46,8 +47,8 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
 
 - **VCR and Webmock**: Replay external HTTP interactions.
 - **API Rate Limit Middleware**: The application is rate-limited.
-  - Faraday Middleware The application uses a custom middleware to handle API rate limiting.
-  - The rate limit is set to 1000 requests in a 24-hour period for each user.
+  - The application uses a custom Faraday middleware to handle API rate limiting.
+  - The rate limit is set to 1000 requests per user in a 24-hour period.
 - **API caching**: Caching is used to store the latest comics fetched from the Marvel API.
   - The cache is cleared every 24 hours.
   - Caching is used for both retrieving the latest comics and fetching comics by character.
