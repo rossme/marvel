@@ -58,6 +58,7 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
 - **Grape API**: The endpoints in the application use Grape API.
   - The API is versioned and follows RESTful conventions.
 - **Marvel API**: The application fetches data from the Marvel API.
+- **Logging**: There is extensive logging throughout the application.
 
 ### Middleware
 
