@@ -2,7 +2,6 @@
 
 module External
   class ApiRateLimiter < Faraday::Middleware
-
     API_RATE_LIMIT = 1000
     TIME_WINDOW = 24.hours
 
