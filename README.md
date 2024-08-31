@@ -6,13 +6,16 @@ It uses API rate limiting, caching, testing with RSpec, VCR, and Webmock.
 
 ### Setup
 
-- **Framework**: This application uses Ruby 3.1.2 and Rails 7.2.1
-- **Installation**: To install the application, run `bundle install`
-- **Database**: To create the database, run `rails db:create`
-- **Migrations**: To run the migrations, run `rails db:migrate`
-- **Seed Data**: To seed the database, run `rails db:seed`
+- **Framework**:
+  - This application uses Ruby 3.1.2 and Rails 7.2.1
+- **Installation**:
+  - To install the application, run `bundle install`
+  - To create the database, run `rails db:create`
+  - To run the migrations, run `rails db:migrate`
+  - To seed the database, run `rails db:seed`
 
-- **Environment Variables**: This application uses Rails credentials to store the Marvel API keys.
+- **Environment Variables**:
+  - This application uses Rails credentials to store the Marvel API keys.
   - To set the credentials, run `EDITOR="nano" rails credentials:edit`
   - Add the following keys:
     ```yaml
