@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+# This service is responsible for fetching a character's comics from the external API
+#
+# @example
+#   External::Comics::Character::Get.new(name: 'deadpool', page: 0, user_id: 3231).call
+#
+# @param [String] name the character's name
+# @param [Integer] page the page number
+# @param [Integer] user_id the user's id
+#
+# @see V1::Comics::Character::Get
+#
+
 module External
   module Comics
     module Character

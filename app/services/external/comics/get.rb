@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+# This service is responsible for fetching comics from the external API
+#
+# @example
+#   External::Comics::Get.new(page: 0, user_id: 3231).call
+#
+# @param [Integer] page the page number
+# @param [Integer] user_id the user's id
+#
+# @see V1::Comics::Get
+#
+
 module External
   module Comics
     class Get

@@ -1,4 +1,5 @@
 <!-- This is the main view for the comics index page -->
+
 <div class="w-full bg-neutral-800">
   <%= render "comics/banner" %>
 
@@ -8,6 +9,7 @@
         <!-- Comics are rendered here using stimulus -->
       </div>
 
+      <!-- Pagination, hidden by default, is visible once the comics are rendered -->
       <%= render "comics/pagination"%>
     </div>
   </div>

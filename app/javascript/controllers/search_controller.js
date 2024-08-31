@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 import { renderComicList } from "./common";
 
+// Stimulus controller for the comics page search by character and pagination
+
 export default class extends Controller {
   static targets = ["input", "list"];
 

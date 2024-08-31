@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 import { addHeartIcon, renderComicList } from "./common";
 
+// Stimulus controller for the comics page list and pagination
+
 export default class extends Controller {
   static targets = ["list", "pagination", "hover"];
 

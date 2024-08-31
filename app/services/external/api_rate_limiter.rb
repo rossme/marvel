@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# This service is responsible for limiting the number of API requests a user can make
+#
+# @example
+#   External::ApiRateLimiter.new(cache_key: 'user_3231').on_request(env)
+#
+# @param [String] cache_key the user's unique cache key
+#
+# @see External::Api
+#
+
 module External
   class ApiRateLimiter < Faraday::Middleware
     API_RATE_LIMIT = 1000
