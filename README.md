@@ -1,8 +1,7 @@
 # Marvel Comics API
 
-This application demonstrates various technical abilities using the Marvel API [https://developer.marvel.com/](https://developer.marvel.com/)
-
-It uses API rate limiting, caching, testing with RSpec, VCR, and Webmock.
+This application demonstrates various technical abilities using the [Marvel API](https://developer.marvel.com/).
+It features API rate limiting, caching, testing with RSpec, including VCR, and Webmock for external API requests.
 
 
 https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
@@ -13,7 +12,7 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
 - **Framework**:
   - This application uses Ruby 3.1.2 and Rails 7.2.1
 - **Installation**:
-  - To install the application, run `bundle install`
+  - To install the required libraries, run `bundle install`
   - To create the database, run `rails db:create`
   - To run the migrations, run `rails db:migrate`
   - To seed the database, run `rails db:seed`
@@ -86,27 +85,26 @@ This application relies on several Ruby gems to enhance its functionality:
 - **Devise**: This gem handles user sessions and authentication.
 - **Stimulus**: This gem is used to add interactivity to the application, keeping the views lightweight.
 
-### VCR and Webmock Testing
+#### Why VCR and Webmock?
+- VCR and Webmock are used to replay external HTTP interactions. This allows the application to run tests without making actual requests to the Marvel API.
 
-VCR and Webmock are used to replay external HTTP interactions. This allows the application to run tests without making actual requests to the Marvel API.
-
-### Why only one Model?
+#### Why only one Model?
 - This application has one model, User.
 - This is because the application is only designed to fetch and display comics from the Marvel API.
 - The User model is an effective way to store the user's session information and manage the API rate limit middleware.
 
-### Why use Grape API?
+#### Why use Grape API?
 - Grape is a lightweight API framework that allows for easy creation of API endpoints.
 
-### Why use Faraday?
+#### Why use Faraday?
 - Faraday is a flexible HTTP client library that allows for easy handling of HTTP requests.
 
-### Why use VCR and Webmock?
+#### Why use VCR and Webmock?
 - VCR and Webmock are used to replay external HTTP interactions, allowing for testing without making actual requests to the Marvel API.
 - Sensitive information is filtered out of the VCR cassettes.
 
-### Why use Cache?
+#### Why use cache?
 - Caching is used to store the latest comics fetched from the Marvel API.
 
-### Why store favourite comics in the session?
+#### Why store favourite comics in the session?
 - Favourite comics are stored in the application session to simplify the application's use.
