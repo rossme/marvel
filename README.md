@@ -115,6 +115,13 @@ This application relies on several Ruby gems to enhance its functionality:
 #### What's next?
 - Add frontend test coverage.
 
+#### Limitations of the MARVEL API
+- The Marvel API is not production grade quality.
+
+#### Why are some comic images the same?
+- Not all comics on the Marvel API have an image and instead contain `/image_not_available` in the img path.
+- If the response contains `/image_not_available` then a stock image is added to the request result.
+
 <br>
 
 <img width="1497" alt="Marvel API search feature" src="https://github.com/user-attachments/assets/80c3104a-c260-4596-800d-872809466f99">
