@@ -5,10 +5,15 @@ export default class extends Controller {
   static targets = ["list", "pagination", "hover"];
 
   connect() {
+    // Remove the active search query from the session storage when the controller is connected
     sessionStorage.removeItem('activeQuery');
+
+    // Initialize the page number to 0 and disable the previous page button
     this.page = 0;
     const previousPageBtn = document.getElementById('previous-page');
     previousPageBtn.disabled = true;
+
+    // Fetch the comics data for the current page
     this.fetchComics(this.page).then(r => {
       this.paginationTarget.classList.remove('invisible');
       console.log('Connected to comics controller. Page:', this.page);
@@ -16,6 +21,8 @@ export default class extends Controller {
   }
 
   onClick(event) {
+    event.preventDefault();
+
     const clickedElement = event.currentTarget;
     const comicId = clickedElement.dataset.id;
 
@@ -42,6 +49,8 @@ export default class extends Controller {
   }
 
   mouseOver(event) {
+    event.preventDefault();
+
     const hoverElement = event.currentTarget;
 
     let overlay = hoverElement.querySelector('.text-overlay');
@@ -63,6 +72,8 @@ export default class extends Controller {
   }
 
   mouseOut(event) {
+    event.preventDefault();
+
     const hoverElement = event.currentTarget;
     hoverElement.classList.remove('inner-box-shadow');
     let overlay = hoverElement.querySelector('.text-overlay');
@@ -76,11 +87,15 @@ export default class extends Controller {
     }
   }
 
-  nextPage() {
+  nextPage(event) {
+    event.preventDefault();
+
     this.changePage(true);
   }
 
-  previousPage() {
+  previousPage(event) {
+    event.preventDefault();
+
     this.changePage(false);
   }
 
