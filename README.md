@@ -114,8 +114,7 @@ This application relies on several Ruby gems to enhance its functionality:
 - Favourite comics are stored in the application session to simplify the application's use.
 
 #### Why no JWT?
-- We are using the session to keep track of the number of API requests, and we automatically login a fake user with devise. Therefore we need stateful tracking (dependent on server-side storage).
-- We would be unable to update the JWT with this user information. [More information](https://apibakery.com/blog/tech/no-jwt/)
+- We are using sessions to track the number of API requests, and we automatically log in a fake user with Devise. As a result, we require stateful tracking that depends on server-side storage. This makes it impossible to update the JWT with the user's information.[More information](https://apibakery.com/blog/tech/no-jwt/)
 
 #### What's next?
 - Add frontend test coverage.
