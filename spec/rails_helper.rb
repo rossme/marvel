@@ -84,15 +84,3 @@ VCR.configure do |c|
   c.filter_sensitive_data('<PUBLIC_KEY>') { External::ApiKeys::PUBLIC_KEY }
   c.filter_sensitive_data('<ENCRYPTED_HASH>') { External::ApiKeys::SECURE_HASH }
 end
-#
-# def secure_hash
-#   Digest::MD5.hexdigest("1#{private_key}#{public_key}")
-# end
-#
-# def private_key
-#   @_private_key ||= Rails.application.credentials[:marvel][:private_key]
-# end
-#
-# def public_key
-#   @_public_key ||= Rails.application.credentials[:marvel][:public_key]
-# end
