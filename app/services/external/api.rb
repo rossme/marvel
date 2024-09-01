@@ -26,7 +26,7 @@ module External
         end
       end
     rescue ExternalApiError => e
-      api_logger.error("Error connecting to the API: #{e}")
+      api_logger.error(I18n.t("api.error", error: "#{e}"))
 
       raise e
     end
@@ -38,7 +38,7 @@ module External
 
       return request if request&.status == 200
 
-      raise ExternalApiError, "Error connecting to the API: #{request&.status}"
+      raise ExternalApiError, I18n.t("api.error", error: "#{request&.status}")
     end
 
     def complete_url
@@ -76,7 +76,7 @@ module External
 
     def fetch_cached_response(path:, search: false)
       Rails.cache.fetch(path, expires_in: 1.hour, skip_nil: true) do
-        api_logger.info "Cache miss, fetching external data from the Marvel API"
+        api_logger.info I18n.t("api.fetch_cached_response")
         build_response(search: search)
       end
     end
@@ -88,7 +88,7 @@ module External
     end
 
     def user_api_limiter_cache_key
-      raise ExternalApiError, "A valid user must be logged in to track their API use" unless user_id
+      raise ExternalApiError, I18n.t("api.user_api_limiter_cache_key") unless user_id
 
       "user_#{user_id}_api_limiter_cache"
     end

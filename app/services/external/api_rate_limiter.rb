@@ -21,12 +21,12 @@ module External
       @cache_key = options[:cache_key]
       @request_count = Rails.cache.fetch(@cache_key) || 0
 
-      raise ExternalApiError, "API rate limit exceeded for user cache #{@cache_key}" if exceeds_api_rate_limit?
+      raise ExternalApiError, I18n.t("api.rate_limit_exceeded", key: @cache_key) if exceeds_api_rate_limit?
 
       increment_api_request_count
-      api_logger.info "API request count: #{@request_count}, cache_key: #{@cache_key}"
+      api_logger.info I18n.t("api.request_count", count: @request_count, key: @cache_key)
     rescue ExternalApiError => e
-      api_logger.error("Error connecting to the API: #{e}")
+      api_logger.error(I18n.t("api.error", error: e))
 
       raise e
     end

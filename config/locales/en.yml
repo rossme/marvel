@@ -28,4 +28,9 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  api:
+    fetch_cached_response: "Cache miss, fetching external data from the Marvel API"
+    user_api_limiter_cache_key: "A valid user must be logged in to track their API use"
+    error: "Error connecting to the API: %{error}"
+    rate_limit_exceeded: "API rate limit exceeded for user cache %{key}"
+    request_count: "API request count: %{count}, cache_key: %{key}"
