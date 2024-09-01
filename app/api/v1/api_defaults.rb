@@ -12,6 +12,7 @@ module V1
       content_type :json, "application/json"
 
       helpers do
+        # Retrieves the Warden object and attempts to authenticate the user. An alternative to passing the user id in the request.
         def current_user
           warden = env["warden"]
           @current_user ||= warden.authenticate
