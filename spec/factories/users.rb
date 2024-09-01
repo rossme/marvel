@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    email { "email@example.com" }
+    email { Faker::Internet.email }
     password { :password_digest }
     created_at { DateTime.now }
   end

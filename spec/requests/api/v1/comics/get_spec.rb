@@ -32,7 +32,7 @@ RSpec.describe V1::Comics::Get, type: :request do
       end
     end
 
-    describe 'returns an error' do
+    describe 'when the service returns an error' do
       before do
         allow(External::Comics::Get).to receive(:new).and_return(instance_double(External::Comics::Get, call: OpenStruct.new(success?: false, errors: 'error')))
       end
@@ -47,6 +47,18 @@ RSpec.describe V1::Comics::Get, type: :request do
         do_request
 
         expect(JSON.parse(response.body)['error']).to eq('error')
+      end
+    end
+
+    describe 'when the user is not authenticated' do
+      before do
+        sign_out user
+      end
+
+      it 'returns a 401' do
+        do_request
+
+        expect(response.status).to eq(401)
       end
     end
   end

@@ -5,6 +5,10 @@ module V1
     class Get < Grape::API
       include V1::ApiDefaults
 
+      before do
+        authenticate!
+      end
+
       resource "comics" do
         desc "Returns a list of comics"
 
