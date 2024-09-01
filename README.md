@@ -61,6 +61,7 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
 - **Logging**: There is extensive logging throughout the application.
   - Sensitive information is filtered out of the logs on VCR and Faraday requests.
   - The logs have a custom tag to identify the action.
+  - This application uses Internationalization (I18n) for logging and error handling.
 
 ### Middleware
 
