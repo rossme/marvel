@@ -59,6 +59,8 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
   - The API is versioned and follows RESTful conventions.
 - **Marvel API**: The application fetches data from the Marvel API.
 - **Logging**: There is extensive logging throughout the application.
+  - Sensitive information is filtered out of the logs on VCR and Faraday requests.
+  - The logs have a custom tag to identify the action.
 
 ### Middleware
 
