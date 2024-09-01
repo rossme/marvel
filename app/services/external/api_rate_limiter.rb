@@ -12,6 +12,8 @@
 
 module External
   class ApiRateLimiter < Faraday::Middleware
+    include External::Api
+
     API_RATE_LIMIT = 1000
     TIME_WINDOW = 24.hours
 
@@ -19,10 +21,14 @@ module External
       @cache_key = options[:cache_key]
       @request_count = Rails.cache.fetch(@cache_key) || 0
 
-      raise Faraday::Error, "API rate limit exceeded for user cache #{@cache_key}" if exceeds_api_rate_limit?
+      raise ExternalApiError, "API rate limit exceeded for user cache #{@cache_key}" if exceeds_api_rate_limit?
 
       increment_api_request_count
-      Rails.logger.info "API request count: #{@request_count}, cache_key: #{@cache_key}"
+      logger.info "API request count: #{@request_count}, cache_key: #{@cache_key}"
+    rescue ExternalApiError => e
+      logger.error("Error connecting to the API: #{e}")
+
+      raise e
     end
 
     def exceeds_api_rate_limit?

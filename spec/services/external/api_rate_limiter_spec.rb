@@ -13,8 +13,6 @@ RSpec.describe External::ApiRateLimiter do
       it "increments the request count" do
         expect(Rails.cache).to receive(:fetch).with(cache_key).and_return(999)
         expect(Rails.cache).to receive(:write).with(cache_key, 1000, expires_in: 24.hours)
-        expect(Rails.logger).to receive(:info).with("API request count: 1000, cache_key: user_3231_api_limiter_cache")
-
         middleware.on_request(nil)
       end
     end

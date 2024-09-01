@@ -17,14 +17,14 @@ module External
     def connection
       Faraday.new do |conn|
         conn.use ApiRateLimiter, cache_key: user_api_limiter_cache_key
-        conn.use :http_cache, store: Rails.cache, logger: Rails.logger
+        conn.use :http_cache, store: Rails.cache, logger: logger
         conn.headers["Content-Type"] = "application/json"
         conn.request :url_encoded
         conn.adapter Faraday.default_adapter
         conn.options.timeout = 40
       end
     rescue ExternalApiError => e
-      Rails.logger.error("Error connecting to the API: #{e}")
+      logger.error("Error connecting to the API: #{e}")
 
       raise e
     end
@@ -91,7 +91,7 @@ module External
 
     def fetch_cached_response(path:, search: false)
       Rails.cache.fetch(path, expires_in: 1.hour, skip_nil: true) do
-        Rails.logger.info "Cache miss, fetching external data from the Marvel API"
+        logger.info "Cache miss, fetching external data from the Marvel API"
         build_response(search: search)
       end
     end
@@ -109,6 +109,10 @@ module External
       raise ExternalApiError, "A valid user must be logged in to track their API use" unless user_id
 
       "user_#{user_id}_api_limiter_cache"
+    end
+
+    def logger
+      @_logger ||= ActiveSupport::TaggedLogging.new(Logger.new(STDOUT)).tagged("MARVEL_EXTERNAL_API")
     end
 
     class ExternalApiError < Faraday::Error; end
