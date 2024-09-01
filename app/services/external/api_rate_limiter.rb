@@ -24,9 +24,9 @@ module External
       raise ExternalApiError, "API rate limit exceeded for user cache #{@cache_key}" if exceeds_api_rate_limit?
 
       increment_api_request_count
-      logger.info "API request count: #{@request_count}, cache_key: #{@cache_key}"
+      api_logger.info "API request count: #{@request_count}, cache_key: #{@cache_key}"
     rescue ExternalApiError => e
-      logger.error("Error connecting to the API: #{e}")
+      api_logger.error("Error connecting to the API: #{e}")
 
       raise e
     end

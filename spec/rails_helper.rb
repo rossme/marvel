@@ -75,26 +75,24 @@ end
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'
+
+  # Do not allow HTTP connections when no cassette is available
   c.allow_http_connections_when_no_cassette = false
   c.hook_into :webmock
 
   # Filter out credentials from the VCR cassettes
-  c.filter_sensitive_data('<PUBLIC_KEY>') { public_key }
-  c.filter_sensitive_data('<ENCRYPTED_HASH>') { secure_hash }
+  c.filter_sensitive_data('<PUBLIC_KEY>') { External::ApiKeys::PUBLIC_KEY }
+  c.filter_sensitive_data('<ENCRYPTED_HASH>') { External::ApiKeys::SECURE_HASH }
 end
-
-def secure_hash
-  Digest::MD5.hexdigest("1#{private_key}#{public_key}")
-end
-
-def marvel_keys
-  @_marvel_keys ||= Rails.application.credentials[:marvel]
-end
-
-def private_key
-  @_private_key ||= marvel_keys[:private_key]
-end
-
-def public_key
-  @_public_key ||= marvel_keys[:public_key]
-end
+#
+# def secure_hash
+#   Digest::MD5.hexdigest("1#{private_key}#{public_key}")
+# end
+#
+# def private_key
+#   @_private_key ||= Rails.application.credentials[:marvel][:private_key]
+# end
+#
+# def public_key
+#   @_public_key ||= Rails.application.credentials[:marvel][:public_key]
+# end

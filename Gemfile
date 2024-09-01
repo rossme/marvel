@@ -36,9 +36,6 @@ gem "grape", "~> 2.1"
 # HTTP client library
 gem "faraday"
 
-# Middleware that handles caching with Faraday
-gem "faraday-http-cache"
-
 # CSS framework
 gem "tailwindcss-rails", "~> 2.7"
 

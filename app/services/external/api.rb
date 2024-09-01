@@ -17,14 +17,16 @@ module External
     def connection
       Faraday.new do |conn|
         conn.use ApiRateLimiter, cache_key: user_api_limiter_cache_key
-        conn.use :http_cache, store: Rails.cache, logger: logger
         conn.headers["Content-Type"] = "application/json"
         conn.request :url_encoded
         conn.adapter Faraday.default_adapter
         conn.options.timeout = 40
+        conn.response :logger, api_logger do | logger |
+          logger.filter(/(apikey=|hash=)([^&]+)/, '\1[FILTERED]')
+        end
       end
     rescue ExternalApiError => e
-      logger.error("Error connecting to the API: #{e}")
+      api_logger.error("Error connecting to the API: #{e}")
 
       raise e
     end
@@ -48,23 +50,7 @@ module External
     end
 
     def query_params
-      "?ts=1&apikey=#{public_key}&hash=#{generate_secure_hash}#{custom_params}"
-    end
-
-    def generate_secure_hash
-      @_generate_secure_hash ||= Digest::MD5.hexdigest("1#{private_key}#{public_key}")
-    end
-
-    def marvel_keys
-      @_marvel_keys ||= Rails.application.credentials[:marvel]
-    end
-
-    def private_key
-      @_private_key ||= marvel_keys[:private_key]
-    end
-
-    def public_key
-      @_public_key ||= marvel_keys[:public_key]
+      "?ts=1&apikey=#{External::ApiKeys::PUBLIC_KEY}&hash=#{External::ApiKeys::SECURE_HASH}#{custom_params}"
     end
 
     def parse_response(res)
@@ -79,30 +65,26 @@ module External
       results = make_request.dig(:data, :results)
       return results if search
 
-      # Return the attributes we need from the API response
       results.map do |result|
         {
           id: result[:id],
           title: result[:title],
-          thumbnail: build_image_path(result)
+          thumbnail: build_image_path(result[:thumbnail])
         }
       end
     end
 
     def fetch_cached_response(path:, search: false)
       Rails.cache.fetch(path, expires_in: 1.hour, skip_nil: true) do
-        logger.info "Cache miss, fetching external data from the Marvel API"
+        api_logger.info "Cache miss, fetching external data from the Marvel API"
         build_response(search: search)
       end
     end
 
-    # If a thumbnail path is not available from the Marvel API, return a placeholder image
-    def build_image_path(result)
-      if result[:thumbnail][:path].include?("image_not_available")
-        return "/assets/marvel_placeholder.jpg"
-      end
+    def build_image_path(thumbnail)
+      return placeholder_image_path if image_not_available?(thumbnail)
 
-      result[:thumbnail][:path] + "." + result[:thumbnail][:extension]
+      thumbnail[:path] + "." + thumbnail[:extension]
     end
 
     def user_api_limiter_cache_key
@@ -111,8 +93,28 @@ module External
       "user_#{user_id}_api_limiter_cache"
     end
 
-    def logger
-      @_logger ||= ActiveSupport::TaggedLogging.new(Logger.new(STDOUT)).tagged("MARVEL_EXTERNAL_API")
+    def api_logger
+      @_api_logger ||= ActiveSupport::TaggedLogging.new(Logger.new(STDOUT)).tagged("MARVEL_EXTERNAL_API")
+    end
+
+    def placeholder_image_path
+      "/assets/marvel_placeholder.jpg"
+    end
+
+    def image_not_available?(thumbnail)
+      thumbnail[:path].include?("image_not_available")
+    end
+
+    def order_by
+      @_order_by ||= "&orderBy=-onsaleDate"
+    end
+
+    def pagination
+      @_pagination ||= "&offset=#{offset}"
+    end
+
+    def offset
+      @_offset ||= page * 20 # 20 objects per page
     end
 
     class ExternalApiError < Faraday::Error; end

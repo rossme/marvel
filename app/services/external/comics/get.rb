@@ -43,21 +43,6 @@ module External
       def custom_params
         @_custom_params ||= "#{order_by}#{pagination}"
       end
-
-      # Move to a common module or base class
-      def order_by
-        @_order_by ||= "&orderBy=-onsaleDate"
-      end
-
-      # Move to a common module or base class
-      def pagination
-        @_pagination ||= "&offset=#{offset}"
-      end
-
-      # Move to a common module or base class
-      def offset
-        @_offset ||= page * 20 # 20 is the default offset limit (20 items per page)
-      end
     end
   end
 end
