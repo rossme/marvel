@@ -50,7 +50,7 @@ https://github.com/user-attachments/assets/ad73cbf9-6e0f-47b0-9dac-17fad35f7b50
   - The application uses a custom Faraday middleware to handle API rate limiting.
   - The rate limit is set to 1000 requests per user in a 24-hour period.
 - **API caching**: Caching is used to store the latest comics fetched from the Marvel API.
-  - The cache is cleared every 24 hours.
+  - The cache is cleared after 1 hour.
   - Caching is used for both retrieving the latest comics and fetching comics by character.
   - This speeds up the application and reduces the number of requests to the Marvel API.
 - **RSpec Testing**: There are extensive tests using RSpec and VCR.
