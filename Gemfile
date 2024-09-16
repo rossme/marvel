@@ -31,7 +31,7 @@ gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 gem "bootsnap", require: false
 
 # Handle API routes
-gem "grape", "~> 2.1"
+gem "grape", "~> 2.2"
 
 # HTTP client library
 gem "faraday"
