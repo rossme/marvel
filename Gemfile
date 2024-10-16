@@ -37,7 +37,7 @@ gem "grape", "~> 2.1"
 gem "faraday"
 
 # CSS framework
-gem "tailwindcss-rails", "~> 2.7"
+gem "tailwindcss-rails", "~> 3.0"
 
 # Devise for authentication
 gem "devise", "~> 4.9"
